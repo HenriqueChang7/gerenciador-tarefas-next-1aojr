@@ -63,6 +63,14 @@ export const Home: NextPage<HomeProps> = ({ setToken }) => {
         setFinishPrevisionDate('');
     }
 
+    const validDate = async (element: any) => {
+        if(element.value != ""){
+            element.type = "date";
+        }else{
+            element.type = "text";
+        }
+    }
+
     const doSave = async () => {
         try{
             setErrorMsg('');
@@ -116,6 +124,7 @@ export const Home: NextPage<HomeProps> = ({ setToken }) => {
                 <input placeholder="Previsão da tarefa" 
                        type="text" 
                        onFocus={e => e.target.type = "date"} 
+                       onBlur= {e => validDate(e.target)}
                        id="date" 
                        value={finishPrevisionDate} 
                        onChange={e => setFinishPrevisionDate(e.target.value)} />

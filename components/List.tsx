@@ -94,6 +94,14 @@ export const List: NextPage<ListProps> = ({ tasks, getFilteredData }) => {
         }
     }
 
+    const validDate = async (element: any) => {
+        if(element.value != ""){
+            element.type = "date";
+        }else{
+            element.type = "text";
+        }
+    }
+
     return (
         <>
             <div className={"container-list" + (tasks && tasks.length > 0 ? ' not-empty' : '')}>
@@ -121,6 +129,7 @@ export const List: NextPage<ListProps> = ({ tasks, getFilteredData }) => {
                     <input placeholder="Conclusão da tarefa" 
                        type="text" 
                        onFocus={e => e.target.type = "date"} 
+                       onBlur= {e => validDate(e.target)}
                        id="date" 
                        value={finishDate} onChange={e => setFinishDate(e.target.value)} />
                 </Modal.Body>
