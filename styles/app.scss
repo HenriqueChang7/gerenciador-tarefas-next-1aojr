@@ -99,6 +99,17 @@ input, select {
     padding-top: 5%;
 }
 
+.success_modal{
+    background-color: $successColor;
+    width: 100%;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.normal_text {
+    color: black !important;
+}
+
 @import './login.scss';
 @import './header.scss';
 @import './footer.scss';
