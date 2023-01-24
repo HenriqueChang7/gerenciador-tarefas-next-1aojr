@@ -96,7 +96,7 @@ const getTasks = async (req: NextApiRequest, res: NextApiResponse<DefaultMessage
 
     if (params?.finishPrevisionStart) {
         const inputDate = moment(params?.finishPrevisionStart);
-        query.finishPrevisionDate = { $gte: inputDate.format('yyyy-MM-DD') }
+        query.finishPrevisionDate = { $gte: inputDate.utc().format('yyyy-MM-DD') }
     }
 
     if (params?.finishPrevisionEnd) {
@@ -104,7 +104,7 @@ const getTasks = async (req: NextApiRequest, res: NextApiResponse<DefaultMessage
         if (!query.finishPrevisionDate) {
             query.finishPrevisionDate = {};
         }
-        query.finishPrevisionDate.$lte = lastDate.format('yyyy-MM-DD')
+        query.finishPrevisionDate.$lte = lastDate.utc().format('yyyy-MM-DD')
     }
 
     if (params?.status) {
@@ -142,7 +142,7 @@ const saveTask = async (req: NextApiRequest, res: NextApiResponse<DefaultMessage
             return res.status(400).json({ error: 'Nome da tarefa invalida' });
         }
 
-        if (!task.finishPrevisionDate || moment(task.finishPrevisionDate).isBefore(moment())) {
+        if (!task.finishPrevisionDate || moment(task.finishPrevisionDate).isBefore(moment().startOf('day'))) {
             return res.status(400).json({ error: 'Data de previsao invalida ou menor que hoje' });
         }
 
